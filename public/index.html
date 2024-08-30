@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+    
+    <style>
+
+      #map { height: 100vh; width: 100%; }
+
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <div id="root"></div>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+      const map = L.map('map').setView([-19.126536, -45.947756], 13);
+  
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      }).addTo(map);
+  
+      const equipmentData = [
+        {
+          name: 'Caminhão de carga',
+          position: [-19.151801, -46.007759],
+          state: 'Operando',
+          color: '#2ecc71'
+        },
+        {
+        name: 'Harvester',
+          position: [-19.195811, -45.825157],
+          state: 'Parado',
+          color: '#f1c40f'
+        },
+
+        {
+            name: 'Garra traçadora',
+          position: [-19.163073, -46.06338],
+          state: 'Manutenção',
+          color: '#e74c3c'
+        }
+
+        
+      ];
+  
+      equipmentData.forEach(equipment => {
+        L.marker(equipment.position)
+          .addTo(map)
+          .bindPopup(`<strong>${equipment.name}</strong><br/>Estado: <span style="color:${equipment.color}">${equipment.state}</span>`);
+      });
+    </script>
+  </body>
+  </html>
